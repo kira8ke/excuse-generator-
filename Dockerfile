@@ -11,4 +11,4 @@ COPY ./workflows /home/node/.n8n/workflows/
 
 EXPOSE 5678
 
-CMD ["n8n"]
+CMD ["/usr/local/bin/node", "/usr/local/bin/n8n"]
