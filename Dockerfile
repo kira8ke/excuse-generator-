@@ -3,7 +3,7 @@ FROM n8nio/n8n:latest
 USER root
 
 COPY --chown=node:node ./workflows /home/node/.n8n/workflows/
-COPY --chown=node:node ./credentials /home/node/.n8n/credentials/
+
 
 USER node 
 
