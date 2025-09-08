@@ -4,10 +4,11 @@
   "description": "n8n on Railway",
   "main": "index.js",
   "scripts": {
-    "start": "n8n start"
+    "start": "node -r dotenv/config node_modules/.bin/n8n start"
   },
   "dependencies": {
-    "n8n": "^1.0.0"
+    "n8n": "^1.0.0",
+    "dotenv": "^16.0.0"
   },
   "engines": {
     "node": ">=18"
