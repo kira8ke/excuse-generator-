@@ -1,0 +1,123 @@
+{
+  "name": "Excuse Generator",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "8ac90418-a9e1-48ff-8afc-1fb90873c4ae",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -224,
+        -96
+      ],
+      "id": "fda2a095-ebbc-40a2-ac3b-83549ea8d5d7",
+      "name": "Webhook",
+      "webhookId": "8ac90418-a9e1-48ff-8afc-1fb90873c4ae"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=The problem :{{ $json.body.problem }}\nTone: {{ $json.body.tone }}",
+        "options": {
+          "systemMessage": "=# Overview\nYou are an AI Excuse Generator, your job is to create clever, creative, and context-appropriate excuses that someone could use to avoid or get out of a situation.\n\n## Instructions\n1) You will recieve a problem as well as a tone for the excuse.\n2) Possible tones include:\n- Realistic: Believable and reasonable \n- Funny: Lighthearted and humorous \n- Ridiculous: Over-the-top and clearly fake, but entertaining\n-Outrageous: Wild and Dramatic, pushing the limits of believability \n\n## Output \n- Only return the excuse \n- Add a touch of humor to the excuses."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        32,
+        -96
+      ],
+      "id": "0503c7bb-89fa-4e04-8a53-3b0295785951",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4.1-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -48,
+        128
+      ],
+      "id": "dc72d8c2-80a1-4b74-ad1c-06351580180a",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "CSSA77dCD5juyb3k",
+          "name": "OpenAi account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        432,
+        -96
+      ],
+      "id": "0b3d0640-7d4a-49d6-b823-1b463fac18e8",
+      "name": "Respond to Webhook"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "e2e78c19-f5a6-4b0d-9649-7fecde7cd2b5",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "b94fe4facea61c11b789ab3e9ae42502f077268c7e4952a84961d78ac1c95355"
+  },
+  "id": "JyDHw2SBEz2zfOAx",
+  "tags": []
+}
