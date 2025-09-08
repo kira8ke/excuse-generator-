@@ -11,4 +11,4 @@ COPY ./workflows /home/node/.n8n/workflows/
 
 EXPOSE 5678
 
-CMD ["/usr/local/bin/node", "/usr/local/bin/n8n"]
+CMD ["npm", "start"]
